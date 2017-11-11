@@ -1,0 +1,12 @@
+[package]
+name = "yade"
+version = "0.1.0"
+authors = ["Lori Holden <noreply@loriholden.com>"]
+
+[dependencies]
+quote = "0.3.15"
+syn = "0.11.11"
+synstructure = "0.6.1"
+
+[lib]
+proc-macro = true
