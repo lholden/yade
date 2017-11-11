@@ -21,7 +21,7 @@ Yade provides two derive macros, `YadeError` ad `YadeKind`.
 
 For example:
 
-```
+```rust
 #[macro_use] extern crate yade;
 use std::fs::File;
 
@@ -60,7 +60,7 @@ fn main() -> {
 
 `YadeKind` is provided to assist in building error types using an ErrorKind enum.
 
-```
+```rust
 #[derive(Debug, YadeError)]
 #[display(msg = "{}", kind)]
 pub struct Error {
