@@ -38,22 +38,24 @@ pub enum Error {
 
 fn causes_error() -> Result<(), Error> {
     File::open("a_missing_file.txt")
-        .map_err(|e| Error::FileNotFound("a_missing_file.txt", e))?;
+        .map_err(|e| Error::FileNotFound("a_missing_file.txt".into(), e))?;
 
     Ok(())
 }
 
-fn main() -> {
+fn main() {
+    use std::error::Error;
     match causes_error() {
-        Err(err) => {
-            eprintln!("An error occured: {}", err);
+      Err(err) => {
+          eprintln!("An error occured: {}", err);
 
-            let mut err: &Error = &e;
-            while let Some(cause) = err.cause() {
+          let mut err: &Error = &err;
+          while let Some(cause) = err.cause() {
               eprintln!(" - Cause: {}", cause);
               err = cause;
-            }
-        }
+          }
+      },
+      _ => println!("Great success"),
     }
 }
 ```
@@ -61,18 +63,21 @@ fn main() -> {
 `YadeKind` is provided to assist in building error types using an ErrorKind enum.
 
 ```rust
+#[macro_use] extern crate yade;
+use std::fs::File;
+
 #[derive(Debug, YadeError)]
 #[display(msg = "{}", kind)]
 pub struct Error {
     pub kind: ErrorKind,
 
     #[cause]
-    pub cause: Option<Box<Error>>,
+    pub cause: Option<Box<std::error::Error>>,
 }
 
 #[derive(Debug, YadeKind)]
 pub enum ErrorKind {
-    #[display(msg = "File could not be found: ", _0)]
+    #[display(msg = "File could not be found: {}", _0)]
     FileNotFound(String),
 
     #[display(msg = "World fell apart, oops")]
@@ -80,24 +85,27 @@ pub enum ErrorKind {
 }
 
 fn causes_error() -> Result<(), Error> {
-  File::open("a_missing_file.txt")
-    .map_err(|e| Error { kind: ErrorKind::FileNotFound("a_missing_file.txt"), cause: e })?;
+    File::open("a_missing_file.txt")
+        .map_err(|e| Error { kind: ErrorKind::FileNotFound("a_missing_file.txt".into()), cause: Some(Box::new(e)) })?;
 
-  Ok(())
+    Ok(())
 }
 
-fn main() -> {
-  match causes_error() {
-    Err(err) => {
-      eprintln!("An error occured: {}", err);
+fn main() {
+    use std::error::Error;
+    match causes_error() {
+        Err(err) => {
+            eprintln!("An error occured: {}", err);
 
-      let mut err: &Error = &e;
-      while let Some(cause) = err.cause() {
-        eprintln!(" - Cause: {}", cause);
-        err = cause;
-      }
+            let mut err: &Error = &err;
+            while let Some(cause) = err.cause() {
+                eprintln!(" - Cause: {}", cause);
+                err = cause;
+            }
+        },
+
+        _ => println!("Great success"),
     }
-  }
 }
 ```
 
