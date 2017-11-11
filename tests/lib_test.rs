@@ -5,6 +5,12 @@
 use std::error::Error;
 
 #[derive(Debug, YadeError)]
+pub struct UnitStruct;
+
+#[derive(Debug, YadeError)]
+pub struct TupleStruct(i32);
+
+#[derive(Debug, YadeError)]
 #[display(msg = "a kind error: {}", kind)]
 pub struct KindError {
     pub kind: KindErrorKind,
@@ -13,7 +19,7 @@ pub struct KindError {
     pub cause: Option<Box<Error>>,
 }
 
-#[derive(Debug, YadeKind)]
+#[derive(Debug, PartialEq, YadeKind)]
 pub enum KindErrorKind {
     #[display(msg = "Kind is One")]
     One,
@@ -93,8 +99,15 @@ fn enum_error() {
 
 #[test]
 fn tuple_struct_enum() {
-    let e = EnumError::Last(std::io::Error::new(std::io::ErrorKind::Other, "oh my!"));
+    let res = std::fs::File::open("a_missing_file.txt")
+        .map_err(|e| EnumError::Last(e));
 
-    assert_eq!("Last", e.to_string());
-    assert_eq!("oh my!", e.cause().unwrap().to_string());
+    match res {
+        Err(err) => {
+            assert_eq!("Last", err.to_string());
+            assert_eq!("No such file or directory (os error 2)", err.cause().unwrap().to_string());
+
+        },
+        _ => panic!("Expected to find an error"),
+    };
 }
