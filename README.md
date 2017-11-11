@@ -3,7 +3,7 @@
 
 Yade is a set of derive macros designed to generate the boilerplate around using the `Error` trait in Rust. This crate supports `enum`, `struct`, unit, tuple struct, and ErrorKind styled Error types.
 
-Yade does not set out to solve any of the problems with the Rust `Error` trait. If you are interested in an alternative trait for error handling that attempts to address the shortcomings of `Error`, please check out [Failure](https://github.com/withoutboats/failure) project.
+Yade does not set out to solve any of the problems with the Rust `Error` trait. If you are interested in an alternative trait for error handling that attempts to address the shortcomings of `Error`, please check out the [Failure](https://github.com/withoutboats/failure) project.
 
 ## Usage
 
