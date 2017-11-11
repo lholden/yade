@@ -1,10 +1,13 @@
 [package]
 name = "yade"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Lori Holden <noreply@loriholden.com>"]
 description = "Yet Another Derive Error"
-license = "MIT OR Apache-2.0"
+license = "MIT/Apache-2.0"
 repository = "https://github.com/lholden/yade"
+
+keywords = ["error", "derive"]
+readme = "README.md"
 
 [dependencies]
 quote = "0.3.15"
