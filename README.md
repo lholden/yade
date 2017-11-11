@@ -24,6 +24,7 @@ For example:
 ```rust
 #[macro_use] extern crate yade;
 use std::fs::File;
+use std::error::Error as StdError;
 
 #[derive(Debug, YadeError)]
 pub enum Error {
@@ -44,12 +45,11 @@ fn causes_error() -> Result<(), Error> {
 }
 
 fn main() {
-    use std::error::Error;
     match causes_error() {
       Err(err) => {
           eprintln!("An error occured: {}", err);
 
-          let mut err: &Error = &err;
+          let mut err: &StdError = &err;
           while let Some(cause) = err.cause() {
               eprintln!(" - Cause: {}", cause);
               err = cause;
@@ -65,6 +65,7 @@ fn main() {
 ```rust
 #[macro_use] extern crate yade;
 use std::fs::File;
+use std::error::Error as StdError;
 
 #[derive(Debug, YadeError)]
 #[display(msg = "{}", kind)]
@@ -72,7 +73,7 @@ pub struct Error {
     pub kind: ErrorKind,
 
     #[cause]
-    pub cause: Option<Box<std::error::Error>>,
+    pub cause: Option<Box<StdError>>,
 }
 
 #[derive(Debug, YadeKind)]
@@ -92,12 +93,11 @@ fn causes_error() -> Result<(), Error> {
 }
 
 fn main() {
-    use std::error::Error;
     match causes_error() {
         Err(err) => {
             eprintln!("An error occured: {}", err);
 
-            let mut err: &Error = &err;
+            let mut err: &StdError = &err;
             while let Some(cause) = err.cause() {
                 eprintln!(" - Cause: {}", cause);
                 err = cause;
