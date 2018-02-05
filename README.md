@@ -1,7 +1,7 @@
 # Yet Another Derive Error (Yade)
 [![](https://img.shields.io/crates/v/yade.svg)](https://crates.io/crates/yade) [![](https://travis-ci.org/lholden/yade.svg?branch=master)](https://travis-ci.org/lholden/yade)
 
-Yade is a set of derive macros designed to generate the boilerplate around using the `Error` trait in Rust. This crate supports `enum`, `struct`, unit, tuple struct, and ErrorKind styled Error types.
+Yade is a set of derive macros designed to generate the boilerplate for the `Error` trait in Rust. This crate supports `enum`, `struct`, unit, tuple struct, and ErrorKind styled Error types.
 
 Yade does not set out to solve any of the problems with the Rust `Error` trait. If you are interested in an alternative trait for error handling that attempts to address the shortcomings of `Error`, please check out the [Failure](https://github.com/withoutboats/failure) project.
 
@@ -112,11 +112,9 @@ fn main() {
 
 ## FAQ
 ##### Why not just use 'failure'?
-I highly encourage that you check out the [failure](https://github.com/withoutboats/failure) crate by withoutboats as it tries to solve many of the problems of the existing `Error` trait. It is currently still in early development, but I do believe that 'failure' or something like it will end up being the future of error handling in rust.
+I highly encourage that you check out the [failure](https://github.com/withoutboats/failure) crate by withoutboats as it tries to solve some of the problems with Rusts `Error` trait. It is currently still in early development, but I do believe that 'failure' or something like it will end up replacing the `Error` trait in rust at some point.
 
-Having said that, 'failure' is better off used in new libraries and applications which have not already standardized around the Rust standard library `Error` trait.
-
-Yade is designed to be a drop-in replacement that maintains compatibility with older code.
+Unlike 'failure', Yade is directly compatible with the standard `Error` trait in Rust. As such, Yade is designed to be a drop-in replacement that maintains compatibility with existing code.
 
 ##### Why not just use 'error-chain'?
 I have used [error-chain](https://github.com/rust-lang-nursery/error-chain) in several projects since it's inception and while I do think it's a useful tool for building applications, I do not feel it fits in well for libraries.
