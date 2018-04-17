@@ -3,7 +3,7 @@
 
 Yade is a set of derive macros designed to generate the boilerplate for the `Error` trait in Rust. This crate supports `enum`, `struct`, unit, tuple struct, and ErrorKind styled Error types.
 
-Yade does not set out to solve any of the problems with the Rust `Error` trait. If you are interested in an alternative trait for error handling that attempts to address the shortcomings of `Error`, please check out the [Failure](https://github.com/withoutboats/failure) project.
+Yade was designed to work with the `Error` trait in the Rust standard library and does not set out to solve any of the problems with said trait. This allows Yade to be drop in compatible with the current ecosystem. If you are interested in an alternative trait for error handling that attempts to address the shortcomings of `Error` by replacing it with a brand new trait, please check out the [Failure](https://github.com/withoutboats/failure) project.
 
 ## Usage
 
@@ -112,9 +112,7 @@ fn main() {
 
 ## FAQ
 ##### Why not just use 'failure'?
-I highly encourage that you check out the [failure](https://github.com/withoutboats/failure) crate by withoutboats as it tries to solve some of the problems with Rusts `Error` trait. It is currently still in early development, but I do believe that 'failure' or something like it will end up replacing the `Error` trait in rust at some point.
-
-Unlike 'failure', Yade is directly compatible with the standard `Error` trait in Rust. As such, Yade is designed to be a drop-in replacement that maintains compatibility with existing code.
+[failure](https://github.com/withoutboats/failure) by withoutboats tries to solve some of the problems with Rusts `Error` trait by introducing a new trait. Unlike 'failure', Yade is directly compatible with the standard `Error` trait in Rust. As such, Yade is designed to be a drop-in replacement that maintains compatibility with existing code.
 
 ##### Why not just use 'error-chain'?
 I have used [error-chain](https://github.com/rust-lang-nursery/error-chain) in several projects since it's inception and while I do think it's a useful tool for building applications, I do not feel it fits in well for libraries.
