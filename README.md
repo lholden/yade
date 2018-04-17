@@ -124,7 +124,6 @@ My main complaint is that 'chain-chain' complicates pattern matching. I also fin
 ## Similar Libraries
 
 * [failure](https://github.com/withoutboats/failure) - A new error management story.
-* [error_def](https://github.com/canndrew/error_def) - A Rust syntax extension for generating error-handling boilerplate code.
 * [derive-error](https://github.com/rushmorem/derive-error) - Derive macro for Error using macros 1.1.
 * [error-chain](https://github.com/rust-lang-nursery/error-chain) - Yet another error boilerplate library.
 
